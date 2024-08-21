@@ -1,0 +1,115 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "tiled.tmx",
+    "automapping.whileDrawing": false,
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "C:/Users/Lenovo Ideapad/Downloads/Tilemap- 01.tmx": {
+            "scale": 1.5684895833333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 165.7645691515856,
+                "y": 109.97841607172509
+            }
+        },
+        "C:/Users/Lenovo Ideapad/Downloads/Tilemap- 01.tmx#Tileset gameplay": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Lenovo Ideapad/Downloads/Tilemap- 01.tmx#Tileset_FONDO": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "arcade.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "autumn.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "blocks.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "city.tsx": {
+            "scaleInDock": 0.25,
+            "scaleInEditor": 0.33
+        },
+        "ground.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "more blocks.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "more village props.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "tblocks.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tiled.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 337,
+                "y": 176
+            }
+        },
+        "tiled.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.33
+        },
+        "tiles for gorund.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "village.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "E:/asjad/Protpolio/assets/images",
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "openFiles": [
+        "tiled.tsx",
+        "tiled.tmx",
+        "tblocks.tsx",
+        "arcade.tsx",
+        "blocks.tsx",
+        "ground.tsx",
+        "village.tsx",
+        "tiles for gorund.tsx",
+        "more village props.tsx"
+    ],
+    "project": "tiled.tiled-project",
+    "recentFiles": [
+        "autumn.tsx",
+        "city.tsx",
+        "tiled.tsx",
+        "more village props.tsx",
+        "tiles for gorund.tsx",
+        "village.tsx",
+        "ground.tsx",
+        "blocks.tsx",
+        "arcade.tsx",
+        "tblocks.tsx",
+        "tiled.tmx",
+        "more blocks.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}

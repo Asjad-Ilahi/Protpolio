@@ -1,0 +1,36 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "portfolio.tmx": {
+            "scale": 0.3822265625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 465.69238630556976,
+                "y": 345.34491568727645
+            }
+        },
+        "portfolio.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 0.125
+        }
+    },
+    "last.imagePath": "C:/Users/Lenovo Ideapad/Desktop/png/elements",
+    "map.height": 23,
+    "map.layerDataFormat": null,
+    "map.width": 32,
+    "openFiles": [
+    ],
+    "project": "portfolio.tiled-project",
+    "recentFiles": [
+        "portfolio.tsx",
+        "portfolio.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
