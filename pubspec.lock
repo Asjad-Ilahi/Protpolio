@@ -171,6 +171,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.3"
+  particles_flutter:
+    dependency: "direct main"
+    description:
+      name: particles_flutter
+      sha256: fd50b5588b32f03813ccf8798762a1a9d90954b8dc7ff62881d33d7533e0d582
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   path:
     dependency: transitive
     description:

@@ -1,8 +1,6 @@
-import 'dart:math';
 
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -12,18 +10,15 @@ import 'package:flutter/services.dart';
 import 'package:game_protpolio/character/main_character.dart';
 import 'package:game_protpolio/ground.dart';
 
-class Portfolio extends FlameGame with HasCollisionDetection, TapDetector,KeyboardEvents{
-  MainCharacter man = MainCharacter();
-  double gravity = 9.8;
-  Vector2 velocity = Vector2(0, 0);
-  double speed = 100;
-  double jump = 200;
-  late Rectangle _levelBounds;
+class Portfolio extends FlameGame with HasCollisionDetection,KeyboardEvents{
+  late MainCharacter man;
+  late Rectangle levelBounds;
   bool movement = false;
-  double friction = 0.9;
   late TiledComponent background1;
   late final CameraComponent cameraComponent;
   late final World world;
+  List<Ground> collisionBlocks = [];
+
 
   @override
   Future<void> onLoad() async {
@@ -32,62 +27,78 @@ class Portfolio extends FlameGame with HasCollisionDetection, TapDetector,Keyboa
     background1 = await TiledComponent.load('tiled.tmx', Vector2.all(32));
     add(background1);
 
-    _levelBounds = Rectangle.fromPoints(Vector2(0,0), Vector2(32.0 * background1.tileMap.map.height,1080));
-
-    double width = 32.0 * background1.tileMap.map.width;
-    final obstacleGroup = background1.tileMap.getLayer<ObjectGroup>('ground');
-
-    for(final obj in obstacleGroup!.objects){
-      add(Ground(position: Vector2(obj.x,obj.y), size: Vector2(obj.width,obj.height)));
-    }
-
+    levelBounds =  Rectangle.fromPoints(
+      Vector2(
+        0,
+        0,
+      ),
+      Vector2(
+        background1.tileMap.map.width.toDouble(),
+        background1.tileMap.map.height.toDouble(),
+      ) *
+          32,
+    );
+    man = MainCharacter(levelBounds: levelBounds);
     man
-      ..sprite = await loadSprite('man.png')
-      ..size = Vector2(50,64)..position = Vector2(200, 544);
+      ..size = Vector2(50,52)..position = Vector2(300, 544);
 
+    double width = (32.0 * background1.tileMap.map.width);
     world = World(children: [background1,man]);
+    _addCollisions();
     cameraComponent = CameraComponent(
       world: world,
-    );
+    )..viewport.size = Vector2(450, 50)
+      ..viewfinder.position = man.position
+    ..viewfinder.anchor = Anchor.topLeft
+    ..viewport.position = Vector2(300, 0);
     cameraComponent.follow(man);
-    cameraComponent.setBounds(Rectangle.fromPoints(_levelBounds.topRight, _levelBounds.topLeft));
+    cameraComponent.setBounds(Rectangle.fromPoints(levelBounds.topRight, levelBounds.topLeft));
     await addAll([world, cameraComponent]);
   }
+
   @override
   void update(double dt) {
     super.update(dt);
-    // Apply gravity
-    if(!man.onGround){
-      velocity.y += gravity;
-    }
-    if (movement) {
-      man.position += velocity * dt;
-    } else {
-      velocity.x *= friction; // Apply friction to slow down the character gradually
-      if (velocity.x.abs() < 0.1) {
-        velocity.x = 0; // Stop completely when the velocity is very small
-      }
-      man.position += velocity * dt;
-    }
+    man.updatePlayerState();
+    man.updatePlayerMovement(dt);
+    man.positionUpdate(dt);
+
+
+    man.checkHorizontalCollisions();
+    man.applyGravity(dt);
+    man.checkVerticalCollisions();
   }
 
 
+  void _addCollisions() {
+    final obstacleGroup = background1.tileMap.getLayer<ObjectGroup>('ground');
+
+    for(final obj in obstacleGroup!.objects){
+      final block = Ground(position: Vector2(obj.x,obj.y), size: Vector2(obj.width,obj.height),isPlatform: true);
+      collisionBlocks.add(block);
+      world.add(block);
+    }
+    man.ground = collisionBlocks;
+  }
   @override
   KeyEventResult onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    super.onKeyEvent(event, keysPressed);
-    if (event is KeyDownEvent) {
-      movement = true;
-      if (keysPressed.contains(LogicalKeyboardKey.arrowRight)) {
-        velocity.x += speed;
-      } else if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)) {
-        velocity.x -= speed;
-      }else if(keysPressed.contains(LogicalKeyboardKey.arrowUp)){
-        man.y -= 10;
-        velocity.y = -jump;
+      man.horizontalMovement=0;
+      final keyLeft = keysPressed.contains(LogicalKeyboardKey.arrowLeft);
+      final keyRight = keysPressed.contains(LogicalKeyboardKey.arrowRight);
+      final keyUp = keysPressed.contains(LogicalKeyboardKey.arrowUp);
+      if (keyLeft) {
+        man.horizontalMovement = -1;
       }
-    } else if (event is KeyUpEvent) {
-      movement = false;
-    }
+      if (keyRight) {
+        man.horizontalMovement = 1;
+      }
+
+      if(keyUp){
+        man.hasJumped =true;
+        man.playerJump(0);
+      }
+
+    super.onKeyEvent(event, keysPressed);
 
     return KeyEventResult.handled;
   }
